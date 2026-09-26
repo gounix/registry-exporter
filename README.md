@@ -24,3 +24,5 @@ The following enviroment variables are supported in the values.yaml:
 # Container
 [docker hub](https://hub.docker.com/r/gounix/registry-exporter)
 
+# Sources
+[GitHub](https://github.com/gounix/registry-exporter/src)
