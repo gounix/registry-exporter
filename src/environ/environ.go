@@ -1,0 +1,53 @@
+/*
+MIT License
+
+Copyright (c) 2026 gounix
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
+package environ
+
+import (
+        "go-simpler.org/env"
+	"log/slog"
+	"os"
+)
+
+type EnvT struct {
+	RefreshSeconds int64  `env:"REFRESH_SECONDS" default:"300"`
+        PortNumber     int64  `env:"PORT_NUMBER" default:"9900"`
+	Registry       string `env:"REGISTRY,required"`
+	Scheme         string `env:"SCHEME,required"`
+}
+
+var Env EnvT
+
+func Load() error {
+	if err := env.Load(&Env, nil); err != nil {
+                slog.Error("registry-exporter/environ", "env.Load", err)
+		os.Exit(1)
+        }
+
+	slog.Info("registry-exporter.environ loaded environment", "REFRESH_SECONDS", Env.RefreshSeconds)
+	slog.Info("registry-exporter.environ loaded environment", "PORT_NUMBER", Env.PortNumber)
+	slog.Info("registry-exporter.environ loaded environment", "REGISTRY", Env.Registry)
+	slog.Info("registry-exporter.environ loaded environment", "SCHEME", Env.Scheme)
+	return nil
+}
