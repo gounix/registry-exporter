@@ -4,6 +4,7 @@ The registry-exporter deployment queries a local docker registry. It gathers sta
 - Harbor
 - Sonatype Nexus
 - Gitea
+
 Most public registries have disabled the _catalog api.
 With the grafana dashboard it is easy to see which images consumes the most space for example.
 
@@ -11,7 +12,7 @@ With the grafana dashboard it is easy to see which images consumes the most spac
 The following enviroment variables are supported in the values.yaml:
 | Variable | Description |
 | -------- | -------- |
-| REFRESH_SECONDS | The amount of seconds between successive polls of docker.io |
+| REFRESH_SECONDS | The amount of seconds between successive polls of the registry |
 | PORT_NUMBER | The port that is used for publishing the metrics |
 | REGISTRY | The domainname for the local registry to query |
 | SCHEME | the scheme to contact the registry, one of http or https |
